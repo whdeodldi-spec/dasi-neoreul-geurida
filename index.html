@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <title>다시, 너를 그리다 — Han Doyoon Portfolio</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;600&display=swap');
+
+    :root{
+      --bg:#f1ede7;
+      --paper:#fbf8f3;
+      --ink:#252220;
+      --sub:#7c736d;
+      --line:#d6cec6;
+      --accent:#a88579;
+      --dark:#2d2926;
+      --shadow:0 20px 60px rgba(48,40,35,.10);
+      --max:1280px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;overflow:hidden;background:var(--bg);color:var(--ink);font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;line-height:1.7;overflow-x:hidden}
+    body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.07;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E")}
+    a{color:inherit;text-decoration:none} button{font:inherit} img{display:block;width:100%}
+    .wrap{width:min(92%,var(--max));margin:auto}
+
+    /* INTRO */
+    .intro{position:fixed;left:0;top:0;width:100vw;height:100vh;height:100svh;height:100dvh;z-index:5000;display:grid;place-items:center;padding:24px;padding-top:max(24px,env(safe-area-inset-top));padding-bottom:max(24px,env(safe-area-inset-bottom));text-align:center;background:#ece7e0;cursor:pointer;transition:opacity .9s ease,visibility .9s ease;overflow:hidden;overscroll-behavior:none;touch-action:manipulation}
+    .intro.hide{opacity:0;visibility:hidden;pointer-events:none}
+    body.site-ready{overflow:auto}
+    .intro-inner{max-width:760px}
+    .intro small{display:block;letter-spacing:.34em;color:#8c8079;font-size:.68rem;margin-bottom:24px}
+    .intro h1{font-family:'Gowun Batang',serif;font-weight:400;font-size:clamp(3rem,10vw,7rem);line-height:1.03;letter-spacing:-.06em;margin:0 0 22px}
+    .intro p{color:#7f746e;font-family:'Gowun Batang',serif;margin:0 0 36px;font-size:clamp(.9rem,2vw,1.08rem)}
+    .enter{display:inline-flex;gap:10px;align-items:center;border-bottom:1px solid #8d8179;padding-bottom:6px;color:#625953;font-size:.79rem;letter-spacing:.06em}
+    .enter::after{content:'→';transition:transform .25s}.intro:hover .enter::after{transform:translateX(5px)}
+
+    /* NAV */
+    header{position:sticky;top:0;z-index:1000;background:rgba(241,237,231,.78);backdrop-filter:blur(18px);border-bottom:1px solid rgba(90,75,65,.08)}
+    .nav{height:68px;display:flex;align-items:center;justify-content:space-between}
+    .brand{font-family:'Gowun Batang',serif;font-size:1rem}
+    .navlinks{display:flex;gap:24px;color:var(--sub);font-size:.75rem;letter-spacing:.12em}
+
+    /* HERO */
+    .hero{min-height:86vh;display:grid;align-items:center;padding:78px 0 94px}
+    .hero-grid{display:grid;grid-template-columns:.88fr 1.12fr;gap:72px;align-items:center}
+    .kicker{font-size:.68rem;letter-spacing:.30em;color:var(--accent);margin-bottom:22px}
+    .hero h2{font-family:'Gowun Batang',serif;font-size:clamp(3.2rem,7vw,7rem);font-weight:400;line-height:1.02;letter-spacing:-.055em;margin:0 0 24px}
+    .hero p{max-width:540px;color:var(--sub);font-size:.94rem}
+    .hero-meta{margin-top:34px;display:grid;grid-template-columns:repeat(3,max-content);gap:32px}
+    .hero-meta b{display:block;font-family:'Gowun Batang',serif;font-weight:400;font-size:1.05rem}.hero-meta span{display:block;color:#9b9088;font-size:.67rem;letter-spacing:.12em;margin-top:3px}
+    .hero-image{position:relative}
+    .hero-image .photo{aspect-ratio:4/5;background:linear-gradient(145deg,#d8d0c8,#f8f4ef);border:1px solid var(--line);box-shadow:var(--shadow);overflow:hidden}
+    .hero-image .photo img{height:100%;object-fit:cover;object-position:center top}
+    .hero-image .label{position:absolute;left:-34px;bottom:54px;background:var(--paper);border:1px solid var(--line);padding:12px 16px;font-family:'Gowun Batang',serif;font-size:.84rem;box-shadow:0 10px 26px rgba(40,35,32,.08);transform:rotate(-4deg)}
+    .img-fallback{height:100%;min-height:100%;display:grid;place-items:center;text-align:center;padding:24px;color:#9b8f86;font-family:'Gowun Batang',serif;background:linear-gradient(145deg,#dad2cb,#f8f4ef)}
+
+    section{padding:100px 0}
+    .section-title{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:44px}
+    .section-title h3{font-family:'Gowun Batang',serif;font-size:clamp(2.1rem,4.5vw,4rem);font-weight:400;letter-spacing:-.04em;margin:0}
+    .section-title p{max-width:460px;margin:0;color:var(--sub);font-size:.86rem}
+
+    /* PROFILE */
+    .profile{background:rgba(251,248,243,.52);border-top:1px solid rgba(108,91,80,.08);border-bottom:1px solid rgba(108,91,80,.08)}
+    .profile-grid{display:grid;grid-template-columns:.78fr 1.22fr;gap:70px;align-items:start}
+    .profile-card{background:var(--paper);border:1px solid var(--line);padding:14px;box-shadow:var(--shadow);transform:rotate(-1.5deg)}
+    .profile-card .photo{aspect-ratio:4/5;overflow:hidden;background:#e0d8d0}.profile-card .photo img{height:100%;object-fit:cover;object-position:center top}
+    .profile-copy h4{font-family:'Gowun Batang',serif;font-size:2.35rem;font-weight:400;margin:0 0 6px}.profile-copy .eng{letter-spacing:.16em;font-size:.68rem;color:var(--accent);margin-bottom:28px}
+    .facts{display:grid;grid-template-columns:repeat(2,1fr);border-top:1px solid var(--line);margin-top:28px}
+    .fact{padding:18px 0;border-bottom:1px solid var(--line)}.fact:nth-child(odd){padding-right:22px}.fact:nth-child(even){padding-left:22px;border-left:1px solid var(--line)}
+    .fact small{display:block;color:#9a8f87;font-size:.62rem;letter-spacing:.16em;margin-bottom:5px}.fact span{font-family:'Gowun Batang',serif;font-size:1rem}
+    .profile-note{margin-top:30px;padding-left:18px;border-left:1px solid var(--accent);color:var(--sub);font-family:'Gowun Batang',serif;font-size:1.02rem}
+
+    /* FEATURED FLIP PORTFOLIO */
+    .viewer-shell{position:relative;background:#2b2724;color:white;padding:22px;box-shadow:var(--shadow)}
+    .viewer{overflow:hidden}
+    .track{display:flex;transition:transform .65s cubic-bezier(.2,.75,.2,1)}
+    .slide{min-width:100%;display:grid;grid-template-columns:1.35fr .65fr;min-height:680px;background:#2b2724}
+    .slide-art{background:#ddd4cc;display:grid;place-items:center;overflow:hidden;position:relative}.slide-art img{width:100%;height:100%;object-fit:contain;object-position:center center;background:#e6ded7}
+    .slide-copy{padding:52px 44px;display:flex;flex-direction:column;justify-content:flex-end;background:#2b2724}
+    .slide-copy small{color:#bca398;letter-spacing:.2em;font-size:.65rem}.slide-copy h4{font-family:'Gowun Batang',serif;font-weight:400;font-size:2.1rem;margin:8px 0 12px}.slide-copy p{color:#b9b0aa;font-size:.86rem;margin:0}.slide-copy .index{margin-top:34px;color:#776d67;font-size:.72rem}
+    .viewer-controls{position:absolute;right:38px;top:38px;display:flex;gap:8px;z-index:5}.round{width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.24);background:rgba(0,0,0,.12);color:#fff;cursor:pointer;font-size:1.1rem}.round:hover{background:rgba(255,255,255,.10)}
+    .dots{position:absolute;left:38px;bottom:32px;display:flex;gap:8px;z-index:5}.dot{width:28px;height:2px;border:0;background:#6a605a;cursor:pointer;padding:0}.dot.active{background:#fff}
+
+    /* ARCHIVE */
+    .archive-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+    .archive-item{cursor:pointer;background:var(--paper);border:1px solid rgba(114,97,86,.13);transition:transform .25s,box-shadow .25s}.archive-item:hover{transform:translateY(-5px);box-shadow:0 14px 34px rgba(44,37,33,.08)}
+    .archive-media{aspect-ratio:4/5;overflow:hidden;background:#ded6ce}.archive-media img{width:100%;height:100%;object-fit:contain;object-position:center center;transition:transform .4s;background:#f4efe8}.archive-item:hover img{transform:scale(1.02)}
+    .archive-meta{padding:13px 14px 16px}.archive-meta small{color:var(--accent);font-size:.58rem;letter-spacing:.16em}.archive-meta h5{font-family:'Gowun Batang',serif;font-weight:400;font-size:1rem;margin:4px 0 0}
+
+    /* CLOSING */
+
+    .final-highlight{padding:120px 0 130px;background:#201d1b;color:#f7f1e9;position:relative;overflow:hidden}
+    .final-highlight::before{content:"FINAL PORTRAIT";position:absolute;right:-18px;top:15px;font-family:'Cormorant Garamond',serif;font-size:clamp(5rem,13vw,11rem);letter-spacing:.03em;color:rgba(255,255,255,.035);white-space:nowrap}
+    .final-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:70px;align-items:center;position:relative;z-index:1}
+    .final-frame{aspect-ratio:4/5;border:1px solid rgba(255,255,255,.18);padding:16px;background:#2a2623;box-shadow:0 30px 80px rgba(0,0,0,.34)}
+    .final-placeholder{width:100%;height:100%;display:grid;place-items:center;text-align:center;border:1px solid rgba(255,255,255,.08);background:linear-gradient(145deg,#322d29,#1f1c1a);font-family:'Cormorant Garamond',serif;letter-spacing:.12em;color:rgba(255,255,255,.5)}
+    .final-placeholder span{display:block;font-family:'Noto Sans KR',sans-serif;font-size:.72rem;letter-spacing:.14em;margin-top:10px;color:rgba(255,255,255,.34)}
+    .final-copy small{letter-spacing:.18em;font-size:.68rem;color:#c5ad9d}.final-copy h3{font-family:'Gowun Batang',serif;font-weight:400;font-size:clamp(2.5rem,5vw,4.7rem);line-height:1.15;margin:14px 0 24px}.final-copy p{color:rgba(255,255,255,.6);max-width:430px;line-height:1.9}.final-copy .final-line{width:58px;height:1px;background:#b69783;margin:30px 0}
+
+    .closing{text-align:center;padding:130px 0 150px}.closing p{font-family:'Gowun Batang',serif;font-size:clamp(1.45rem,4vw,3rem);line-height:1.55;margin:0}.closing small{display:block;margin-top:24px;color:#958a83;letter-spacing:.13em}
+    footer{text-align:center;padding:28px 0 50px;color:#91867f;font-size:.67rem;letter-spacing:.16em}
+
+    /* MUSIC */
+    .music{position:fixed;right:max(18px,env(safe-area-inset-right));bottom:max(18px,env(safe-area-inset-bottom));z-index:2500;display:flex;align-items:center;gap:10px;background:rgba(250,247,242,.86);backdrop-filter:blur(14px);border:1px solid rgba(105,88,78,.16);border-radius:999px;padding:8px 12px 8px 8px;box-shadow:0 10px 30px rgba(48,40,35,.12)}
+    .music button{width:36px;height:36px;border-radius:50%;border:0;background:var(--dark);color:white;cursor:pointer}.music span{font-family:'Gowun Batang',serif;font-size:.72rem;color:#6f655f;white-space:nowrap}
+    .music-bars{display:flex;align-items:end;gap:2px;height:13px}.music-bars i{display:block;width:2px;background:var(--accent);animation:bar .9s infinite ease-in-out}.music-bars i:nth-child(1){height:5px}.music-bars i:nth-child(2){height:11px;animation-delay:.15s}.music-bars i:nth-child(3){height:7px;animation-delay:.3s}.music.paused .music-bars i{animation-play-state:paused;height:3px}
+    @keyframes bar{0%,100%{transform:scaleY(.45)}50%{transform:scaleY(1)}}
+
+    /* MODAL */
+    .modal{position:fixed;inset:0;z-index:4000;background:rgba(24,21,19,.9);display:none;align-items:center;justify-content:center;padding:22px}.modal.open{display:flex}
+    .modal-card{width:min(1100px,100%);max-height:90vh;display:grid;grid-template-columns:minmax(0,1.45fr) minmax(260px,.55fr);background:#f8f4ef;overflow:auto;position:relative}
+    .modal-visual{background:#ded6cf;min-height:560px;display:grid;place-items:center}.modal-visual img{height:100%;max-height:86vh;object-fit:contain;background:#e6ded7}
+    .modal-copy{padding:38px}.modal-copy small{color:var(--accent);letter-spacing:.18em}.modal-copy h4{font-family:'Gowun Batang',serif;font-size:2rem;font-weight:400;margin:7px 0 12px}.modal-copy p{color:var(--sub);font-size:.86rem}.modal-close{position:absolute;right:12px;top:12px;width:38px;height:38px;border-radius:50%;border:0;background:rgba(40,35,32,.86);color:#fff;cursor:pointer;z-index:2}
+
+    .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s ease}.reveal.on{opacity:1;transform:none}
+
+    @media(max-width:980px){
+      .hero-grid,.profile-grid{grid-template-columns:1fr;gap:44px}.hero-image{max-width:700px}.hero-image .label{left:12px}.slide{grid-template-columns:1fr;min-height:0}.slide-art{height:70vh;min-height:440px}.slide-copy{padding:32px 28px 58px}.archive-grid{grid-template-columns:repeat(2,1fr)}.modal-card{grid-template-columns:1fr}.modal-visual{min-height:420px}
+    }
+    @media(max-width:640px){
+      .navlinks{display:none}.hero{min-height:auto;padding-top:50px}.hero-meta{grid-template-columns:repeat(3,1fr);gap:14px}.hero-meta b{font-size:.92rem}.section-title{display:block}.section-title p{margin-top:12px}.facts{grid-template-columns:1fr}.fact:nth-child(even){padding-left:0;border-left:0}.fact:nth-child(odd){padding-right:0}.archive-grid{grid-template-columns:1fr 1fr;gap:9px}.archive-meta{padding:10px}.viewer-shell{padding:10px}.slide-art{height:58vh;min-height:360px}.viewer-controls{right:22px;top:22px}.dots{left:22px;bottom:22px}.music span{display:none}.music{padding-right:8px}section{padding:76px 0}.closing{padding:96px 0 110px}
+    }
+  .modal-nav{position:absolute;top:50%;transform:translateY(-50%);width:46px;height:46px;border:1px solid rgba(255,255,255,.28);border-radius:50%;background:rgba(30,26,24,.7);color:#fff;font-size:1.45rem;cursor:pointer;z-index:3}.modal-prev{left:14px}.modal-next{right:14px}.modal-count{margin-top:22px;color:var(--accent);font-size:.7rem;letter-spacing:.14em}
+    .archive-empty{width:100%;height:100%;min-height:250px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:linear-gradient(145deg,#eee8e1,#faf7f2);color:#9b8f86;font-family:'Gowun Batang',serif}
+    .archive-empty span{font-size:.68rem;letter-spacing:.22em}.archive-empty strong{font-size:2rem;font-weight:400}
+    .modal-empty{width:100%;height:100%;min-height:60vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(145deg,#e8e1da,#faf7f2);color:#94877e;font-family:'Gowun Batang',serif}
+    .modal-empty span{font-size:.78rem;letter-spacing:.24em}.modal-empty strong{font-size:4rem;font-weight:400;line-height:1.1}.modal-empty em{font-style:normal;font-size:.8rem;margin-top:10px;opacity:.7}
+  
+    /* Mobile top safe-area cover */
+    @media (max-width: 780px){
+      header{
+        padding-top:max(env(safe-area-inset-top),18px);
+      }
+      header::before{
+        content:"";
+        position:absolute;
+        top:0;
+        left:0;
+        right:0;
+        height:max(env(safe-area-inset-top),18px);
+        background:#000;
+        z-index:2;
+        pointer-events:none;
+      }
+      header .nav{
+        position:relative;
+        z-index:3;
+      }
+    }
+
+
+    /* iOS Safari status-bar cover */
+    #iosStatusCover{
+      display:none;
+    }
+    @supports (padding-top: env(safe-area-inset-top)){
+      #iosStatusCover{
+        display:block;
+        position:fixed;
+        top:0;
+        left:0;
+        right:0;
+        height:max(env(safe-area-inset-top), 1px);
+        background:#000;
+        z-index:20000;
+        pointer-events:none;
+      }
+    }
+
+</style>
+</head>
+<body>
+  <div id="iosStatusCover" aria-hidden="true"></div>
+  <div class="intro" id="intro" role="button" tabindex="0" aria-label="포트폴리오 입장">
+    <div class="intro-inner">
+      <small>HAN DOYOON · PRIVATE MODEL PORTFOLIO</small>
+      <h1>다시,<br>너를 그리다</h1>
+      <p>한 사람을 오래 바라본 시선으로 만든 개인 포트폴리오.</p>
+      <span class="enter">화면을 눌러 포트폴리오 열기</span>
+    </div>
+  </div>
+
+  <audio id="bgm" loop preload="auto">
+    <source src="assets/audio/bgm.mp3" type="audio/mpeg" />
+  </audio>
+
+  <header>
+    <div class="wrap nav">
+      <a class="brand" href="#top">다시, 너를 그리다</a>
+      <nav class="navlinks">
+        <a href="#model">MODEL</a>
+        <a href="#featured">PORTFOLIO</a>
+        <a href="#archive">ARCHIVE</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div class="reveal">
+          <div class="kicker">MODEL STUDY / 2026</div>
+          <h2>HAN<br>DOYOON</h2>
+          <p>인물의 표정과 자세, 손끝의 작은 습관까지 기록한 개인 모델 포트폴리오. 빠른 크로키부터 완성 초상까지, 한도윤을 중심으로 진행한 드로잉 아카이브.</p>
+          <div class="hero-meta">
+            <div><b>24</b><span>AGE</span></div>
+            <div><b>184cm</b><span>HEIGHT</span></div>
+            <div><b>MODEL</b><span>ROLE</span></div>
+          </div>
+        </div>
+        <div class="hero-image reveal">
+          <div class="photo"><img src="assets/images/hero.webp" alt="한도윤 메인 포트레이트"></div>
+          <div class="label">No. 01 — main portrait</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="profile" id="model">
+      <div class="wrap">
+        <div class="section-title reveal"><h3>Model Profile</h3><p>작업에 사용한 모델의 기본 정보와 시각적 특징을 정리한 프로필.</p></div>
+        <div class="profile-grid">
+          <div class="profile-card reveal"><div class="photo"><img class="asset-img" src="assets/images/profile.webp" alt="한도윤 프로필" data-fallback="MODEL PROFILE · HAN DOYOON"></div></div>
+          <div class="profile-copy reveal">
+            <h4>한도윤</h4>
+            <div class="eng">HAN DOYOON · MODEL / ACTING MAJOR</div>
+            <p>짙은 흑발과 길게 떨어지는 눈매. 말수가 적고 차분한 인상이지만 웃을 때는 분위기가 완전히 달라진다. 팔다리가 길고 선이 정돈된 체형이라 정적인 포즈와 손을 활용한 포즈가 특히 잘 어울린다.</p>
+            <div class="facts">
+              <div class="fact"><small>AGE</small><span>24세</span></div>
+              <div class="fact"><small>STATUS</small><span>연극영화과 휴학생</span></div>
+              <div class="fact"><small>HAIR</small><span>Deep Black</span></div>
+              <div class="fact"><small>BUILD</small><span>Slender / Toned</span></div>
+              <div class="fact"><small>FEATURE</small><span>긴 눈매 · 넓은 어깨</span></div>
+              <div class="fact"><small>POSE</small><span>정적 포즈 · 손 포즈</span></div>
+            </div>
+            <div class="profile-note">“오래 보고 그릴수록, 표정보다 버릇이 먼저 보이는 사람.”</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="featured">
+      <div class="wrap">
+        <div class="section-title reveal"><h3>Selected Portfolio</h3><p>완성도 높은 연필 스케치와 인물 스터디를 한 장씩 넘겨보는 Selected Portfolio.</p></div>
+        <div class="viewer-shell reveal">
+          <div class="viewer-controls"><button class="round" id="prev" aria-label="이전 작품">←</button><button class="round" id="next" aria-label="다음 작품">→</button></div>
+          <div class="viewer"><div class="track" id="track">
+            <article class="slide" data-index="0">
+              <div class="slide-art"><img class="asset-img" src="assets/images/sel1.webp" alt="포트폴리오 1" data-fallback="PORTFOLIO 01 · 대표 포즈 스케치"></div>
+              <div class="slide-copy"><small>PORTRAIT / 01</small><h4>First Study</h4><p>인물의 전체적인 인상과 시선을 중심으로 진행한 첫 초상 작업.</p><div class="index">01 / 05</div></div>
+            </article>
+            <article class="slide" data-index="1">
+              <div class="slide-art"><img class="asset-img" src="assets/images/sel2.webp" alt="포트폴리오 2" data-fallback="PORTFOLIO 02"></div>
+              <div class="slide-copy"><small>CROQUIS / 02</small><h4>Turning Back</h4><p>팔을 들어 올린 뒤돌아선 자세와 어깨선의 흐름을 빠르게 기록한 크로키.</p><div class="index">02 / 05</div></div>
+            </article>
+            <article class="slide" data-index="2">
+              <div class="slide-art"><img class="asset-img" src="assets/images/sel3.webp" alt="포트폴리오 3" data-fallback="PORTFOLIO 03"></div>
+              <div class="slide-copy"><small>DETAIL / 03</small><h4>Hands</h4><p>손가락의 길이와 관절, 얼굴 가까이 놓인 손의 긴장감을 중심으로 한 디테일 스터디.</p><div class="index">03 / 05</div></div>
+            </article>
+            <article class="slide" data-index="3">
+              <div class="slide-art"><img class="asset-img" src="assets/images/sel4.webp" alt="포트폴리오 4" data-fallback="PORTFOLIO 04"></div>
+              <div class="slide-copy"><small>PORTRAIT / 04</small><h4>Side Profile</h4><p>옆얼굴의 선과 목, 어깨가 이어지는 흐름에 집중한 작업.</p><div class="index">04 / 05</div></div>
+            </article>
+            <article class="slide" data-index="4">
+              <div class="slide-art"><img class="asset-img" src="assets/images/sel5.webp" alt="포트폴리오 5" data-fallback="PORTFOLIO 05"></div>
+              <div class="slide-copy"><small>SKETCH / 05</small><h4>Resting</h4><p>포즈 사이의 짧은 휴식에서 포착한 자연스러운 자세.</p><div class="index">05 / 05</div></div>
+            </article>
+          </div></div>
+          <div class="dots" id="dots"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="archive">
+      <div class="wrap">
+        <div class="section-title reveal"><h3>Archive</h3><p>빠른 선과 포즈를 중심으로 기록한 단순 크로키 8점. 썸네일을 클릭하면 크게 볼 수 있습니다.</p></div>
+        <div class="archive-grid" id="archiveGrid"></div>
+      </div>
+    </section>
+
+
+    <section class="final-highlight" id="final-portrait">
+      <div class="wrap final-grid">
+        <div class="final-frame reveal">
+          <div class="final-placeholder" style="padding:0;border:none;background:#2a2623;"><img src="assets/images/final.webp" alt="Final Portrait" style="width:100%;height:100%;object-fit:contain;object-position:center center;display:block;"></div>
+        </div>
+        <div class="final-copy reveal">
+          <small>FINAL / HIGHLIGHT</small>
+          <h3>Final Portrait</h3>
+          <div class="final-line"></div>
+          <p>여러 번의 포즈와 스터디를 지나 마지막에 완성되는 한 장. 최종 초상화는 다른 작품과 분리해 포트폴리오의 마지막 하이라이트로 남긴다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="closing"><div class="wrap reveal"><p>“다시 그리기 시작한 뒤에야<br>예전보다 더 많은 걸 보게 됐다.”</p><small>HAN DOYOON · PRIVATE MODEL STUDY</small></div></section>
+  </main>
+
+  <footer>© 2026 AGAIN, DRAWING YOU · PORTFOLIO ARCHIVE</footer>
+
+  <div class="music paused" id="musicBox" title="배경음악 재생/정지">
+    <button id="musicBtn" aria-label="배경음악 재생">▶</button>
+    <div class="music-bars"><i></i><i></i><i></i></div>
+    <span id="musicLabel">BGM</span>
+  </div>
+
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="modal-card">
+      <button class="modal-close" id="modalClose" aria-label="닫기">×</button>
+      <button class="modal-nav modal-prev" id="modalPrev" aria-label="이전 작품">‹</button>
+      <button class="modal-nav modal-next" id="modalNext" aria-label="다음 작품">›</button>
+      <div class="modal-visual" id="modalVisual"></div>
+      <div class="modal-copy"><small id="modalTag"></small><h4 id="modalTitle"></h4><p id="modalDesc"></p><div class="modal-count" id="modalCount"></div></div>
+    </div>
+  </div>
+
+  <script>
+    /* ---------- Intro + BGM ---------- */
+    const intro = document.getElementById('intro');
+    const bgm = document.getElementById('bgm');
+    const musicBtn = document.getElementById('musicBtn');
+    const musicBox = document.getElementById('musicBox');
+    const musicLabel = document.getElementById('musicLabel');
+
+    bgm.volume = 0.38;
+
+    async function startMusic(){
+      try{
+        await bgm.play();
+        musicBox.classList.remove('paused');
+        musicBtn.textContent='Ⅱ';
+        musicBtn.setAttribute('aria-label','배경음악 일시정지');
+        musicLabel.textContent='BGM ON';
+        return true;
+      }catch(err){
+        musicBox.classList.add('paused');
+        musicBtn.textContent='▶';
+        musicBtn.setAttribute('aria-label','배경음악 재생');
+        musicLabel.textContent='BGM TAP';
+        return false;
+      }
+    }
+
+    let introDismissed = false;
+    async function dismissIntro(e){
+      if(e){
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      if(introDismissed) return;
+      introDismissed = true;
+
+      // The audio call happens directly from the user's gesture.
+      await startMusic();
+
+      intro.classList.add('hide');
+      document.body.classList.add('site-ready');
+      window.scrollTo(0,0);
+
+      setTimeout(()=>{
+        intro.setAttribute('aria-hidden','true');
+      },950);
+    }
+
+    if(window.PointerEvent){
+      intro.addEventListener('pointerup', dismissIntro, {passive:false});
+    }else{
+      intro.addEventListener('click', dismissIntro);
+      intro.addEventListener('touchend', dismissIntro, {passive:false});
+    }
+
+    intro.addEventListener('keydown',e=>{
+      if(['Enter',' ','Escape'].includes(e.key)) dismissIntro(e);
+    });
+
+    // Keep the intro aligned when mobile browser chrome expands/collapses.
+    function syncIntroHeight(){
+      if(!introDismissed && window.visualViewport){
+        intro.style.height = window.visualViewport.height + 'px';
+      }
+    }
+    if(window.visualViewport){
+      window.visualViewport.addEventListener('resize', syncIntroHeight);
+      window.visualViewport.addEventListener('scroll', syncIntroHeight);
+      syncIntroHeight();
+    }
+
+    musicBtn.addEventListener('click', async ()=>{
+      if(bgm.paused){ await startMusic(); }
+      else{ bgm.pause(); musicBox.classList.add('paused'); musicBtn.textContent='▶'; musicBtn.setAttribute('aria-label','배경음악 재생'); musicLabel.textContent='BGM OFF'; }
+    });
+
+    /* ---------- Reveal ---------- */
+    const observer = new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('on')}),{threshold:.12});
+    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+    /* ---------- Slider ---------- */
+    const track = document.getElementById('track');
+    const slides = [...document.querySelectorAll('.slide')];
+    const prev = document.getElementById('prev');
+    const next = document.getElementById('next');
+    const dots = document.getElementById('dots');
+    let current = 0;
+
+    slides.forEach((_,i)=>{
+      const dot=document.createElement('button');
+      dot.className='dot'+(i===0?' active':'');
+      dot.setAttribute('aria-label',`${i+1}번 작품 보기`);
+      dot.addEventListener('click',()=>go(i));
+      dots.appendChild(dot);
+    });
+    const dotEls=[...dots.children];
+    function go(i){
+      current=(i+slides.length)%slides.length;
+      track.style.transform=`translateX(-${current*100}%)`;
+      dotEls.forEach((d,idx)=>d.classList.toggle('active',idx===current));
+    }
+    prev.addEventListener('click',()=>go(current-1));
+    next.addEventListener('click',()=>go(current+1));
+
+    // swipe
+    let touchStartX=0;
+    track.addEventListener('touchstart',e=>touchStartX=e.touches[0].clientX,{passive:true});
+    track.addEventListener('touchend',e=>{
+      const dx=e.changedTouches[0].clientX-touchStartX;
+      if(Math.abs(dx)>45) go(current+(dx<0?1:-1));
+    },{passive:true});
+
+    /* ---------- Archive ---------- */
+    const archiveData = [
+      {no:'01',title:'Croquis 01',tag:'CROQUIS',desc:'정면 자세와 전체 비율을 빠르게 잡은 크로키.',src:'assets/images/arc1.webp'},
+      {no:'02',title:'Croquis 02',tag:'CROQUIS',desc:'팔을 들어 올린 뒤태의 흐름을 간결하게 기록한 크로키.',src:'assets/images/arc2.webp'},
+      {no:'03',title:'Croquis 03',tag:'CROQUIS',desc:'손과 얼굴의 겹침을 중심으로 남긴 부분 크로키.',src:'assets/images/arc3.webp'},
+      {no:'04',title:'Croquis 04',tag:'CROQUIS',desc:'손의 형태와 시선의 방향을 빠르게 포착한 크로키.',src:'assets/images/arc4.webp'},
+      {no:'05',title:'Croquis 05',tag:'CROQUIS',desc:'옆얼굴과 목선의 흐름에 집중한 간결한 스터디.',src:'assets/images/arc5.webp'},
+      {no:'06',title:'Croquis 06',tag:'CROQUIS',desc:'앉은 자세의 무게 중심과 실루엣을 기록한 크로키.',src:'assets/images/arc6.webp'},
+      {no:'07',title:'Croquis 07',tag:'CROQUIS',desc:'고개를 숙인 자연스러운 자세를 빠른 선으로 남긴 드로잉.',src:'assets/images/arc7.webp'},
+      {no:'08',title:'Croquis 08',tag:'CROQUIS',desc:'뒤돌아 웃는 순간을 가볍게 포착한 마지막 크로키.',src:'assets/images/arc8.webp'}
+    ];    const grid=document.getElementById('archiveGrid');
+    archiveData.forEach((itemData,idx)=>{
+      const item=document.createElement('article');
+      item.className='archive-item reveal';
+      item.tabIndex=0;
+      item.setAttribute('role','button');
+      item.setAttribute('aria-label',`${itemData.title} 크게 보기`);
+      item.innerHTML=`<div class="archive-media">${itemData.src?`<img src="${itemData.src}" alt="${itemData.title}">`:`<div class="archive-empty"><span>CROQUIS</span><strong>${itemData.no}</strong></div>`}</div><div class="archive-meta"><small>${itemData.tag} / ${itemData.no}</small><h5>${itemData.title}</h5></div>`;
+      item.addEventListener('click',()=>openModal(idx));
+      item.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openModal(idx)}});
+      grid.appendChild(item);
+      observer.observe(item);
+    });
+
+    /* ---------- Archive Modal ---------- */
+    const modal=document.getElementById('modal');
+    const modalVisual=document.getElementById('modalVisual');
+    const modalTag=document.getElementById('modalTag');
+    const modalTitle=document.getElementById('modalTitle');
+    const modalDesc=document.getElementById('modalDesc');
+    const modalCount=document.getElementById('modalCount');
+    const modalClose=document.getElementById('modalClose');
+    const modalPrev=document.getElementById('modalPrev');
+    const modalNext=document.getElementById('modalNext');
+    let modalIndex=0;
+    let modalTouchStartX=0;
+
+    function renderModal(){
+      const item=archiveData[modalIndex];
+      modalVisual.innerHTML=item.src?`<img src="${item.src}" alt="${item.title}">`:`<div class="modal-empty"><span>CROQUIS</span><strong>${item.no}</strong><em>이미지 자리</em></div>`;
+      modalTag.textContent=`${item.tag} / ${item.no}`;
+      modalTitle.textContent=item.title;
+      modalDesc.textContent=item.desc;
+      modalCount.textContent=`${String(modalIndex+1).padStart(2,'0')} / ${String(archiveData.length).padStart(2,'0')}`;
+    }
+    function openModal(index){
+      modalIndex=index;
+      renderModal();
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden','false');
+      document.body.style.overflow='hidden';
+      modalClose.focus();
+    }
+    function closeModal(){
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden','true');
+      document.body.style.overflow='';
+    }
+    function stepModal(delta){
+      modalIndex=(modalIndex+delta+archiveData.length)%archiveData.length;
+      renderModal();
+    }
+    modalClose.addEventListener('click',closeModal);
+    modalPrev.addEventListener('click',e=>{e.stopPropagation();stepModal(-1)});
+    modalNext.addEventListener('click',e=>{e.stopPropagation();stepModal(1)});
+    modal.addEventListener('click',e=>{if(e.target===modal)closeModal()});
+    modal.addEventListener('touchstart',e=>{modalTouchStartX=e.touches[0].clientX},{passive:true});
+    modal.addEventListener('touchend',e=>{
+      const dx=e.changedTouches[0].clientX-modalTouchStartX;
+      if(Math.abs(dx)>50) stepModal(dx<0?1:-1);
+    },{passive:true});
+    window.addEventListener('keydown',e=>{
+      if(!modal.classList.contains('open')) return;
+      if(e.key==='Escape') closeModal();
+      if(e.key==='ArrowRight') stepModal(1);
+      if(e.key==='ArrowLeft') stepModal(-1);
+    });
+  </script>
+</body>
+</html>
